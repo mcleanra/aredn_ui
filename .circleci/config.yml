@@ -1,0 +1,14 @@
+version: 2
+jobs:
+  ######################################
+  # Common
+  ######################################
+  build:
+    machine:
+      enabled: true
+    steps:
+      - run:
+          name: Flag aredn_ar71xx to build
+          command: ssh ${SSH_USER}@${SSH_HOST} "sh -c ' echo ${CIRCLE_PROJECT_REPONAME}_${CIRCLE_SHA1} > ~/build_info/${CIRCLE_MAIN_PROJECT_USERNAME}_${CIRCLE_MAIN_PROJECT_REPONAME}_${CIRCLE_MAIN_BRANCH}'"
+
+
