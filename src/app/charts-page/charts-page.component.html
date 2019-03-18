@@ -1,3 +1,17 @@
-<p>
-  charts-page works!
-</p>
+<div class="row">
+    <div class="col-md-10">
+
+    </div>
+    <div class="col-md-2 right">
+        <button *ngIf="!polling" class="button primary" (click)="onStartPolling()">Start</button>
+        <button *ngIf="polling" class="button secondary" (click)="onStopPolling()">Stop</button>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-2">
+
+    </div>
+    <div class="col-md-10">
+        <aredn-signal-chart [(data)]="results"></aredn-signal-chart>
+    </div>
+</div>
