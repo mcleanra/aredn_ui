@@ -1,0 +1,45 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-2">
+
+    </div>
+    <div class="col-md-8"></div>
+    <div class="col-md-2 right">
+      <button *ngIf="autoScanEnabled" class="button secondary" (click)="onAutoScanDisabled()">Stop</button>
+      <button *ngIf="!autoScanEnabled" class="button" (click)="onAutoScanEnabled()">Auto</button>
+      <button *ngIf="scanning" class="button primary" disabled>Scanning...</button>
+      <button *ngIf="!scanning" class="button primary" (click)="scan()"><span class="icon-rss inverse"></span>
+        Scan</button>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <table class="table hoverable">
+        <thead>
+          <tr>
+            <th><span class="clickable" (click)="sortBy('signal')">Signal</span></th>
+            <th><span class="clickable" (click)="sortBy('chan')">Channel</span></th>
+            <th><span class="clickable" (click)="sortBy('key')">Encrypted</span></th>
+            <th class="wide"><span class="clickable" (click)="sortBy('ssid')">SSID</span></th>
+            <th class="wide"><span class="clickable" (click)="sortBy('host')">Hostname</span></th>
+            <th class="wide"><span class="clickable" (click)="sortBy('mac')">MAC/BSSID</span></th>
+            <th><span class="clickable" (click)="sortBy('mode')">Mode</span></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let result of results">
+            <td>{{ result.signal }} <aredn-signal [db]="result.signal"></aredn-signal>
+            </td>
+            <td>{{ result.chan }}</td>
+            <td><span *ngIf="result.key === '*'" class="icon-lock"></span></td>
+            <td class="wide">{{ result.ssid }}</td>
+            <td class="wide">{{ result.host }}</td>
+            <td class="wide">{{ result.mac }}</td>
+            <td>{{ result.mode }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div>

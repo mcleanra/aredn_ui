@@ -13,6 +13,8 @@ import { PerformanceComponent } from './cards/performance/performance.component'
 import { MemoryAndStorageComponent } from './cards/memory-and-storage/memory-and-storage.component';
 import { HeaderComponent } from './header/header.component';
 import { NodesPageComponent } from './nodes-page/nodes-page.component';
+import { ScanPageComponent } from './scan-page/scan-page.component';
+import { SignalComponent } from './scan-page/signal/signal.component';
 
 /**
  * These are the cards that are displayed on the Status Page
@@ -32,7 +34,9 @@ const CardComponents = [
     HeaderComponent,
     StatusPageComponent,
     NodesPageComponent,
-    ...CardComponents
+    ...CardComponents,
+    ScanPageComponent,
+    SignalComponent
   ],
   imports: [
     BrowserModule,
