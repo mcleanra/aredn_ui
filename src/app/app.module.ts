@@ -15,6 +15,7 @@ import { HeaderComponent } from './header/header.component';
 import { NodesPageComponent } from './nodes-page/nodes-page.component';
 import { ScanPageComponent } from './scan-page/scan-page.component';
 import { SignalComponent } from './scan-page/signal/signal.component';
+import { ChartsPageComponent } from './charts-page/charts-page.component';
 
 /**
  * These are the cards that are displayed on the Status Page
@@ -36,7 +37,8 @@ const CardComponents = [
     NodesPageComponent,
     ...CardComponents,
     ScanPageComponent,
-    SignalComponent
+    SignalComponent,
+    ChartsPageComponent
   ],
   imports: [
     BrowserModule,
