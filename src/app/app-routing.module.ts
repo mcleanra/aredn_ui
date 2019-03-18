@@ -14,16 +14,16 @@ const routes: Routes = [
         pathMatch: 'full'
       },
       {
-        path: 'status',
-        component: StatusPageComponent
-      },
-      {
         path: 'nodes',
         component: NodesPageComponent
       },
       {
         path: 'scan',
         component: ScanPageComponent
+      },
+      {
+        path: 'status',
+        component: StatusPageComponent
       }
     ]
   },
