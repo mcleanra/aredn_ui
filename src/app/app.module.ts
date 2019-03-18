@@ -16,6 +16,9 @@ import { NodesPageComponent } from './nodes-page/nodes-page.component';
 import { ScanPageComponent } from './scan-page/scan-page.component';
 import { SignalComponent } from './scan-page/signal/signal.component';
 import { ChartsPageComponent } from './charts-page/charts-page.component';
+import { ChartsModule } from 'ng2-charts';
+import { SignalChartComponent } from './charts-page/signal-chart/signal-chart.component';
+import { DatePipe } from '@angular/common';
 
 /**
  * These are the cards that are displayed on the Status Page
@@ -38,14 +41,16 @@ const CardComponents = [
     ...CardComponents,
     ScanPageComponent,
     SignalComponent,
-    ChartsPageComponent
+    ChartsPageComponent,
+    SignalChartComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
-    AppRoutingModule
+    AppRoutingModule,
+    ChartsModule
   ],
-  providers: [],
+  providers: [DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
