@@ -14,7 +14,10 @@ import { MemoryAndStorageComponent } from './cards/memory-and-storage/memory-and
 import { HeaderComponent } from './header/header.component';
 import { NodesPageComponent } from './nodes-page/nodes-page.component';
 import { ScanPageComponent } from './scan-page/scan-page.component';
-import { SignalComponent } from './scan-page/signal/signal.component';
+import { SignalIconComponent } from './scan-page/signal-icon/signal-icon.component';
+import { SortIconComponent } from './scan-page/sort-icon/sort-icon.component';
+import { ScanListResultsComponent } from './scan-page/scan-list-results/scan-list-results.component';
+import { NgArrayPipesModule } from 'ngx-pipes';
 
 /**
  * These are the cards that are displayed on the Status Page
@@ -36,12 +39,15 @@ const CardComponents = [
     NodesPageComponent,
     ...CardComponents,
     ScanPageComponent,
-    SignalComponent
+    SignalIconComponent,
+    SortIconComponent,
+    ScanListResultsComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
-    AppRoutingModule
+    AppRoutingModule,
+    NgArrayPipesModule
   ],
   providers: [],
   bootstrap: [AppComponent]

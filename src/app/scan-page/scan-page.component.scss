@@ -1,12 +1,8 @@
-.wide {
-    flex-basis: 10%;
-}
-
 .right {
-    display: flex; 
-    justify-content: flex-end;
+  display: flex;
+  justify-content: flex-end;
 }
 
-.clickable {
-    cursor:pointer;
+.scanbutton {
+  min-width: 105px;
 }
