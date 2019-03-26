@@ -6,7 +6,7 @@ declare namespace ArednApi {
         pages: {
             status?: StatusPage,
             chart?: ChartPage
-        };
+        }
     }
 
     interface StatusPage {
