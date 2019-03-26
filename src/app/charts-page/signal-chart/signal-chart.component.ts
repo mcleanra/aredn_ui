@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { ChartDataSets, ChartOptions } from 'chart.js';
 import { Label, Color } from 'ng2-charts';
-import { SignalResult } from '../signal-result';
+import { ArednApi } from '../../../ArednApi';
 
 @Component({
   selector: 'aredn-signal-chart',
@@ -10,7 +10,7 @@ import { SignalResult } from '../signal-result';
 })
 export class SignalChartComponent implements OnInit, OnChanges {
 
-  @Input() data: SignalResult[] = [];
+  @Input() data: ArednApi.SignalResult[] = [];
 
   public lineChartData: ChartDataSets[] = [];
   public lineChartLabels: Label[] = [];
