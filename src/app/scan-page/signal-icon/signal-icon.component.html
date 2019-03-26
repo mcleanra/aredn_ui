@@ -1,0 +1,7 @@
+<ng-container [ngSwitch]="bars">
+  <img *ngSwitchCase="0" title="{{quality}}%" src="/luci-static/resources/icons/signal-0.png" />
+  <img *ngSwitchCase="25" title="{{quality}}%" src="/luci-static/resources/icons/signal-0-25.png" />
+  <img *ngSwitchCase="50" title="{{quality}}%" src="/luci-static/resources/icons/signal-25-50.png" />
+  <img *ngSwitchCase="75" title="{{quality}}%" src="/luci-static/resources/icons/signal-50-75.png" />
+  <img *ngSwitchCase="100" title="{{quality}}%" src="/luci-static/resources/icons/signal-75-100.png" />
+</ng-container>

@@ -5,8 +5,35 @@ declare namespace ArednApi {
     interface ApiResponse {
         pages: {
             status?: StatusPage,
-            chart?: ChartPage
-        }
+            chart?: ChartPage,
+            scan?: ScanPage
+        };
+    }
+
+    interface ScanPage {
+        scanlist?: Array<ScanListResult>
+    }
+
+    interface ScanListResult {
+        encryption?: ScanListEncryption,
+        quality_max?: number,
+        ssid?: string,
+        channel?: number,
+        signal?: number,
+        bssid?: string,
+        mode?: string,
+        quality?: number
+    }
+
+    interface ScanListEncryption {
+        enabled?: boolean,
+        auth_algs?: Array<string>,
+        description?: string,
+        wep?: boolean,
+        auth_suites?: Array<string>,
+        wpa?: number,
+        pair_ciphers?: Array<string>,
+        group_ciphers?: Array<string>
     }
 
     interface StatusPage {
@@ -17,6 +44,7 @@ declare namespace ArednApi {
         location?: Location;
         olsr?: OLSR;
         ip?: IPAddresses;
+        freqlist?: FrequencyListResult[];
     }
 
     interface SysInfo {
@@ -84,4 +112,10 @@ declare namespace ArednApi {
         rx_rate: string; //Mbps
         tx_rate: string; //Mbps
     }
+    interface FrequencyListResult {
+        restricted: boolean;
+        mhz: number;
+        channel: number;
+    }
+
 }
