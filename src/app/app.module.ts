@@ -22,6 +22,9 @@ import { SignalIconComponent } from './scan-page/signal-icon/signal-icon.compone
 import { SortIconComponent } from './scan-page/sort-icon/sort-icon.component';
 import { ScanListResultsComponent } from './scan-page/scan-list-results/scan-list-results.component';
 import { NgArrayPipesModule } from 'ngx-pipes';
+import { ToneComponent } from './charts-page/tone/tone.component';
+import { AudioContextModule } from 'angular-audio-context';
+import { FormsModule } from '@angular/forms';
 
 /**
  * These are the cards that are displayed on the Status Page
@@ -47,14 +50,17 @@ const CardComponents = [
     SignalChartComponent,
     SignalIconComponent,
     SortIconComponent,
-    ScanListResultsComponent
+    ScanListResultsComponent,
+    ToneComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
     ChartsModule,
-    NgArrayPipesModule
+    NgArrayPipesModule,
+    AudioContextModule.forRoot('balanced'),
+    FormsModule
   ],
   providers: [DatePipe],
   bootstrap: [AppComponent]

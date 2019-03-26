@@ -20,6 +20,7 @@
     "@angular/platform-browser": "~7.0.0",
     "@angular/platform-browser-dynamic": "~7.0.0",
     "@angular/router": "~7.0.0",
+    "angular-audio-context": "^21.0.7",
     "chart.js": "^2.8.0",
     "core-js": "^2.5.4",
     "ng2-charts": "^2.0.3",

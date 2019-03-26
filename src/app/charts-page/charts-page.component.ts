@@ -14,6 +14,7 @@ export class ChartsPageComponent extends DisposableComponent implements OnInit, 
   public results: ArednApi.SignalResult[] = [];
   public pollInterval: number = 1000;
   public polling = false;
+  public snr: number;
 
   private poll: Subscription;
 
@@ -44,6 +45,7 @@ export class ChartsPageComponent extends DisposableComponent implements OnInit, 
   }
 
   onResultsReceived(results: [ArednApi.SignalResult[]]) {
+    this.updateSnr(results[0]);
     this.addResult(results[0]);
   }
 
@@ -59,6 +61,10 @@ export class ChartsPageComponent extends DisposableComponent implements OnInit, 
   onStopPolling() {
     this.polling = false;
     this.poll.unsubscribe();
+  }
+
+  updateSnr(results: ArednApi.SignalResult[]) {
+    this.snr = results[results.length - 1].m;
   }
 
 }
