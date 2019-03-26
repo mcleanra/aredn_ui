@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from "@angular/core";
 import { Subscription, interval } from "rxjs";
 import { ChartPageDataService } from "../chart-page-data.service";
 import { ArednApi } from "src/ArednApi";
-import { takeUntil, map } from "rxjs/operators";
+import { takeUntil, first } from "rxjs/operators";
 import { DisposableComponent } from "../DisposableComponent";
 
 @Component({
@@ -12,7 +12,7 @@ import { DisposableComponent } from "../DisposableComponent";
 })
 export class ChartsPageComponent extends DisposableComponent implements OnInit, OnDestroy {
   public results: ArednApi.SignalResult[] = [];
-  public pollInterval: number = 1;
+  public pollInterval: number = 1000;
   public polling = false;
 
   private poll: Subscription;
@@ -21,18 +21,18 @@ export class ChartsPageComponent extends DisposableComponent implements OnInit, 
     super();
   }
 
-  addResult(results: ArednApi.SignalResult[]) {
-    this.results = this.results.concat(results);
+  addResult(result: ArednApi.SignalResult[]) {
+    this.results = this.results.concat(result);
   }
 
   getSignal(realtimeOrArchive: string = "realtime") {
     this.chartService.get<[ArednApi.SignalResult[]]>(realtimeOrArchive)
       .pipe(
-        takeUntil(this.disposer),
-        map(result => result[0])
+        first(),
+        takeUntil(this.disposer)
       )
       .subscribe(
-        result => { this.addResult(result); },
+        results => this.onResultsReceived(results),
         error => console.error(error),
         () => {/*done*/ }
       );
@@ -41,6 +41,10 @@ export class ChartsPageComponent extends DisposableComponent implements OnInit, 
   ngOnInit() {
     //gets some historical data to start with
     this.getSignal("archive");
+  }
+
+  onResultsReceived(results: [ArednApi.SignalResult[]]) {
+    this.addResult(results[0]);
   }
 
   onStartPolling() {
