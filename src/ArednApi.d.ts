@@ -1,8 +1,11 @@
+import { ChartPageDataService } from "./app/chart-page-data.service";
+
 declare namespace ArednApi {
 
     interface ApiResponse {
         pages: {
-            status?: StatusPage
+            status?: StatusPage,
+            chart?: ChartPage
         };
     }
 
@@ -66,4 +69,19 @@ declare namespace ArednApi {
         lan: string;
     }
 
+    interface ChartPage {
+        realtime?: [SignalResult[]],
+        archive?: [SignalResult[]]
+    }
+
+    interface SignalResult {
+        tx_mcs: string;
+        rx_mcs: string;
+        label: string;
+        m: number; //margin (signal - noise) in dB
+        y: [number | null, number | null]; //[signal, noise] in dBm
+        x: number; //seconds since epoch?
+        rx_rate: string; //Mbps
+        tx_rate: string; //Mbps
+    }
 }
