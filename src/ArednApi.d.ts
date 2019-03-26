@@ -41,6 +41,7 @@ declare namespace ArednApi {
         location?: Location;
         olsr?: OLSR;
         ip?: IPAddresses;
+        freqlist?: FrequencyListResult[];
     }
 
     interface SysInfo {
@@ -91,6 +92,12 @@ declare namespace ArednApi {
         wan: string;
         gateway: string;
         lan: string;
+    }
+
+    interface FrequencyListResult {
+        restricted: boolean;
+        mhz: number;
+        channel: number;
     }
 
 }
