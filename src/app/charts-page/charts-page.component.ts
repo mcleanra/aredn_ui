@@ -1,54 +1,60 @@
 import { Component, OnInit, OnDestroy } from "@angular/core";
-import { ChartService } from "./chart.service";
-import { Subscription } from "rxjs";
-import { SignalResult } from "./signal-result";
+import { Subscription, interval } from "rxjs";
+import { ChartPageDataService } from "../chart-page-data.service";
+import { ArednApi } from "src/ArednApi";
+import { takeUntil, map } from "rxjs/operators";
+import { DisposableComponent } from "../DisposableComponent";
 
 @Component({
   selector: "aredn-charts-page",
   templateUrl: "./charts-page.component.html",
   styleUrls: ["./charts-page.component.scss"]
 })
-export class ChartsPageComponent implements OnInit, OnDestroy {
-  public results: SignalResult[] = [];
+export class ChartsPageComponent extends DisposableComponent implements OnInit, OnDestroy {
+  public results: ArednApi.SignalResult[] = [];
   public pollInterval: number = 1;
   public polling = false;
 
-  private subscriptions: Subscription[] = [];
+  private poll: Subscription;
 
-  constructor(public chartService: ChartService) { }
+  constructor(public chartService: ChartPageDataService) {
+    super();
+  }
 
-  addResult(results: SignalResult[]) {
+  addResult(results: ArednApi.SignalResult[]) {
     this.results = this.results.concat(results);
+  }
+
+  getSignal(realtimeOrArchive: string = "realtime") {
+    this.chartService.get<[ArednApi.SignalResult[]]>(realtimeOrArchive)
+      .pipe(
+        takeUntil(this.disposer),
+        map(result => result[0])
+      )
+      .subscribe(
+        result => { this.addResult(result); },
+        error => console.error(error),
+        () => {/*done*/ }
+      );
   }
 
   ngOnInit() {
     //gets some historical data to start with
-    this.subscriptions.push(
-      this.chartService.read().subscribe(res => this.addResult(res))
-    );
-  }
-
-  ngOnDestroy() {
-    this.unsubscribeAll();
+    this.getSignal("archive");
   }
 
   onStartPolling() {
     this.polling = true;
-    this.subscriptions.push(
-      this.chartService
-        .poll(this.pollInterval)
-        .subscribe(res => this.addResult(res))
-    );
+    this.poll = interval(this.pollInterval)
+      .pipe(takeUntil(this.disposer))
+      .subscribe(() => {
+        this.getSignal("realtime");
+      });
   }
 
   onStopPolling() {
     this.polling = false;
-    this.unsubscribeAll();
+    this.poll.unsubscribe();
   }
 
-  unsubscribeAll() {
-    this.subscriptions.forEach(sub => {
-      sub.unsubscribe();
-    });
-  }
 }
