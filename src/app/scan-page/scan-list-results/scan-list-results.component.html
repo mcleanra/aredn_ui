@@ -1,0 +1,46 @@
+<table class="table hoverable">
+  <thead>
+    <tr>
+      <th><a href="#" (click)="orderBy('quality', $event)">Quality<aredn-sort-icon
+            [active]="orderByProperty==='quality'" [desc]="orderByDescending"></aredn-sort-icon></a></th>
+      <th><a href="#" (click)="orderBy('signal', $event)">Signal<aredn-sort-icon [active]="orderByProperty==='signal'"
+            [desc]="orderByDescending"></aredn-sort-icon></a>
+      </th>
+      <th><a href="#" (click)="orderBy('channel', $event)">Channel<aredn-sort-icon
+            [active]="orderByProperty==='channel'" [desc]="orderByDescending"></aredn-sort-icon></a>
+      </th>
+      <th class="wide"><a href="#" (click)="orderBy('encryption.description', $event)">Encryption<aredn-sort-icon
+            [active]="orderByProperty==='encryption.description'" [desc]="orderByDescending"></aredn-sort-icon>
+        </a>
+      </th>
+      <th class="wide"><a href="#" (click)="orderBy('ssid', $event)">SSID<aredn-sort-icon
+            [active]="orderByProperty==='ssid'" [desc]="orderByDescending"></aredn-sort-icon></a>
+      </th>
+      <th class="wide"><a href="#" (click)="orderBy('bssid', $event)">MAC<aredn-sort-icon
+            [active]="orderByProperty==='bssid'" [desc]="orderByDescending"></aredn-sort-icon></a>
+      </th>
+      <th><a href="#" (click)="orderBy('mode', $event)">Mode<aredn-sort-icon [active]="orderByProperty==='mode'"
+            [desc]="orderByDescending"></aredn-sort-icon></a>
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let result of results | orderBy: (orderByDescending ? '-' + orderByProperty : orderByProperty)">
+      <td [attr.data-label]="Quality">
+        <aredn-signal-icon [quality]="result.quality"></aredn-signal-icon> {{ result.quality }}%
+      </td>
+      <td [attr.data-label]="Signal">{{ result.signal }} dBm</td>
+      <td [attr.data-label]="Channel">{{ result.channel }}</td>
+      <td [attr.data-label]="Encryption" class="wide"><span *ngIf="result.encryption?.enabled">
+          <span class="icon-lock"></span> {{ result.encryption.description }}
+        </span>
+      </td>
+      <td [attr.data-label]="SSID" class="wide">
+        <b *ngIf="result.ssid">{{ result.ssid }}</b>
+        <i *ngIf="!result.ssid">hidden</i>
+      </td>
+      <td [attr.data-label]="MAC" class="wide">{{ result.bssid }}</td>
+      <td [attr.data-label]="Mode">{{ result.mode }}</td>
+    </tr>
+  </tbody>
+</table>

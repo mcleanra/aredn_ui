@@ -22,10 +22,11 @@ export class ApiDataLink implements IDataLink<ArednApi.ApiResponse> {
      * Handles fetching data
      */
     resolveData(keys: string[]): Observable<ArednApi.ApiResponse> {
+        let params = {};
+        params[this.page] = keys.join(",");
+
         return this.http.get<ArednApi.ApiResponse>(`/cgi-bin/api`, {
-            params: {
-                status: keys.join(',')
-            }
+            params: params
         });
     }
 

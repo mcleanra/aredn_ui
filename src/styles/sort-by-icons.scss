@@ -1,0 +1,23 @@
+.sort-by-asc {
+  left: 3px;
+  display: inline-block;
+  width: 0;
+  height: 0;
+  border: solid 4px transparent;
+  margin: 4px 4px 6px 3px;
+  background: transparent;
+  border-bottom: solid 5px #000;
+  border-top-width: 0;
+}
+
+.sort-by-desc {
+  left: 3px;
+  display: inline-block;
+  width: 0;
+  height: 0;
+  border: solid 4px transparent;
+  margin: 4px 4px 0px 3px;
+  background: transparent;
+  border-top: solid 5px #000;
+  border-bottom-width: 0;
+}
