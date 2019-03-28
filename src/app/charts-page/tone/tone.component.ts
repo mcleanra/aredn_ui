@@ -19,15 +19,15 @@ export class ToneComponent implements OnInit, OnChanges {
   constructor(private audioContext: AudioContext) { }
 
   ngOnChanges(changes: SimpleChanges): void {
-    this.toneFreq();
+    this.updateToneAndFrequency();
   }
 
   ngOnInit() {
-
+    this.setupOscillator();
   }
 
   onSettingsChanged() {
-    this.toneFreq();
+    this.updateToneAndFrequency();
   }
 
   private setupOscillator() {
@@ -38,15 +38,16 @@ export class ToneComponent implements OnInit, OnChanges {
     this.gainNode.connect(this.audioContext.destination);
   }
 
-  private toneFreq() {
-    let snr = this.snr;
-    this.oscillator.frequency.value = snr * this.pitch;
-    this.gainNode.gain.value = this.volume / 10;
+  private updateToneAndFrequency() {
+    if (this.oscillator && this.gainNode) {
+      this.oscillator.frequency.value = this.snr * this.pitch;
+      this.gainNode.gain.value = this.volume / 10;
+    }
   }
 
   toneOn() {
     this.setupOscillator();
-    this.toneFreq();
+    this.updateToneAndFrequency();
     this.oscillator.start();
     this.toneActive = true;
   }
