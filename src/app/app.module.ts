@@ -24,7 +24,7 @@ import { NgArrayPipesModule } from 'ngx-pipes';
 import { ToneComponent } from './charts-page/tone/tone.component';
 import { AudioContextModule } from 'angular-audio-context';
 import { FormsModule } from '@angular/forms';
-import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { LineChartModule } from '@swimlane/ngx-charts';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 /**
@@ -62,7 +62,7 @@ const CardComponents = [
     NgArrayPipesModule,
     AudioContextModule.forRoot('balanced'),
     FormsModule,
-    NgxChartsModule
+    LineChartModule
   ],
   providers: [DatePipe],
   bootstrap: [AppComponent]
