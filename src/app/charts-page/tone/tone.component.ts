@@ -9,6 +9,7 @@ import { AudioContext } from 'angular-audio-context';
 export class ToneComponent implements OnInit, OnChanges {
 
   @Input() snr: number;
+  @Input() feedActive: boolean;
 
   oscillator: any;
   gainNode: any;
@@ -19,6 +20,12 @@ export class ToneComponent implements OnInit, OnChanges {
   constructor(private audioContext: AudioContext) { }
 
   ngOnChanges(changes: SimpleChanges): void {
+    //turn the tone off automatically if the feed stops
+    if (typeof this.feedActive !== 'undefined') {
+      if (this.toneActive && !this.feedActive) {
+        this.toneOff();
+      }
+    }
     this.updateToneAndFrequency();
   }
 

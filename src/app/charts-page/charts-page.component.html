@@ -10,7 +10,7 @@
 </div>
 <div class="row">
     <div class="col-md-2">
-        <aredn-tone [snr]="snr"></aredn-tone>
+        <aredn-tone [snr]="snr" [feedActive]="polling"></aredn-tone>
     </div>
     <div class="col-md-10">
         <aredn-signal-chart [data]="results"></aredn-signal-chart>
