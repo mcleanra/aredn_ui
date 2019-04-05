@@ -15,7 +15,6 @@ import { HeaderComponent } from './header/header.component';
 import { NodesPageComponent } from './nodes-page/nodes-page.component';
 import { ScanPageComponent } from './scan-page/scan-page.component';
 import { ChartsPageComponent } from './charts-page/charts-page.component';
-import { ChartsModule } from 'ng2-charts';
 import { SignalChartComponent } from './charts-page/signal-chart/signal-chart.component';
 import { DatePipe } from '@angular/common';
 import { SignalIconComponent } from './scan-page/signal-icon/signal-icon.component';
@@ -25,6 +24,8 @@ import { NgArrayPipesModule } from 'ngx-pipes';
 import { ToneComponent } from './charts-page/tone/tone.component';
 import { AudioContextModule } from 'angular-audio-context';
 import { FormsModule } from '@angular/forms';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 /**
  * These are the cards that are displayed on the Status Page
@@ -55,12 +56,13 @@ const CardComponents = [
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     HttpClientModule,
     AppRoutingModule,
-    ChartsModule,
     NgArrayPipesModule,
     AudioContextModule.forRoot('balanced'),
-    FormsModule
+    FormsModule,
+    NgxChartsModule
   ],
   providers: [DatePipe],
   bootstrap: [AppComponent]

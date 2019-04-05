@@ -1,5 +1,4 @@
-<div style="display:block;">
-  <canvas baseChart [datasets]="lineChartData" [labels]="lineChartLabels" [options]="lineChartOptions"
-    [colors]="lineChartColors" [legend]="lineChartLegend" [chartType]="lineChartType" [plugins]="lineChartPlugins">
-  </canvas>
-</div>
+<ngx-charts-line-chart [animations]="animations" [view]="view" [scheme]="colorScheme" [results]="lines"
+  [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis" [legend]="showLegend" [showXAxisLabel]="showXAxisLabel"
+  [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel" [timeline]="timeline">
+</ngx-charts-line-chart>
