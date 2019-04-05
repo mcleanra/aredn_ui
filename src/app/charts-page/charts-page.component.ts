@@ -26,6 +26,16 @@ export class ChartsPageComponent extends DisposableComponent implements OnInit, 
     this.results = this.results.concat(result);
   }
 
+  clear() {
+    this.results = [];
+  }
+
+  onGetArchive() {
+    this.onStopPolling();
+    this.clear();
+    this.getSignal("archive");
+  }
+
   getSignal(realtimeOrArchive: string = "realtime") {
     this.chartService.get<[ArednApi.SignalResult[]]>(realtimeOrArchive)
       .pipe(
@@ -40,8 +50,7 @@ export class ChartsPageComponent extends DisposableComponent implements OnInit, 
   }
 
   ngOnInit() {
-    //gets some historical data to start with
-    this.getSignal("archive");
+    this.onStartPolling();
   }
 
   onResultsReceived(results: [ArednApi.SignalResult[]]) {

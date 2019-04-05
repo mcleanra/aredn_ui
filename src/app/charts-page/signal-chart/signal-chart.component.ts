@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { ArednApi } from '../../../ArednApi';
+import { formatDate } from '@angular/common';
 
 @Component({
   selector: 'aredn-signal-chart',
@@ -50,15 +51,21 @@ export class SignalChartComponent implements OnInit, OnChanges {
     ];
 
     this.data.forEach(val => {
+      //when getting "archive" data, each label contains date and time MM/dd/yyyy HH:MM:SS
+      //when getting "realtime" data, each label only contains the time 'HH:MM:SS'
+      //here we are checking for this and prepending today's date (UTC) to make everything consistent
+      if (val.label.length == 8) {
+        val.label = `${formatDate(Date.now(), 'MM/dd/yyyy', 'en-US', 'UTC')} ${val.label}`;
+      }
       lines[0].series.push(
         {
-          name: lines[0].series.length,
+          name: new Date(val.label),
           value: +val.y[0] || 0
         }
       );
       lines[1].series.push(
         {
-          name: lines[1].series.length,
+          name: new Date(val.label),
           value: +val.y[1] || 0
         }
       );

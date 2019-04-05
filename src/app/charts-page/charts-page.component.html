@@ -5,6 +5,7 @@
     <div class="col-md-2 right">
         <button *ngIf="!polling" class="button primary" (click)="onStartPolling()">Start</button>
         <button *ngIf="polling" class="button secondary" (click)="onStopPolling()">Stop</button>
+        <button class="button" (click)="onGetArchive()">Archive</button>
     </div>
 </div>
 <div class="row">
