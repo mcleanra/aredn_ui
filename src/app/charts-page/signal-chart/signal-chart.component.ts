@@ -4,12 +4,16 @@ import { ArednApi } from '../../../ArednApi';
 @Component({
   selector: 'aredn-signal-chart',
   templateUrl: './signal-chart.component.html',
-  styleUrls: ['./signal-chart.component.scss']
+  styleUrls: ['./signal-chart.component.scss'],
+  host: {
+    "[style.display]": "'inline-block'",
+    "[style.width]": "'100%'",
+    "[style.height.px]": "400"
+  }
 })
 export class SignalChartComponent implements OnInit, OnChanges {
 
   @Input() data: ArednApi.SignalResult[] = [];
-  view: any[] = [];
 
   // options
   animations = true;
