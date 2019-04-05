@@ -59,6 +59,7 @@ export class ChartsPageComponent extends DisposableComponent implements OnInit, 
   }
 
   onStartPolling() {
+    this.clear();
     this.polling = true;
     this.poll = interval(this.pollInterval)
       .pipe(takeUntil(this.disposer))
