@@ -51,16 +51,15 @@ export class SignalChartComponent implements OnInit, OnChanges {
     ];
 
     this.data.forEach(val => {
-      let timeLabel = `${formatDate(Date.parse(val.timestamp), 'HH:MM:ss', 'en-US', 'UTC')}`;
       lines[0].series.push(
         {
-          name: timeLabel,
+          name: Date.parse(val.timestamp),
           value: +val.signal_dbm || 0
         }
       );
       lines[1].series.push(
         {
-          name: timeLabel,
+          name: Date.parse(val.timestamp),
           value: +val.noise_dbm || 0
         }
       );
@@ -77,7 +76,13 @@ export class SignalChartComponent implements OnInit, OnChanges {
     this.updateChart();
   }
 
-  xAxisTickFormatting(val: any) {
+  yAxisTickFormatting(val: any) {
     return val + "dBm";
   }
+
+  xAxisTickFormatting(val: any) {
+    let timeLabel = `${formatDate(val, 'HH:MM:ss', 'en-US', 'UTC')}`;
+    return timeLabel;
+  }
+
 }
