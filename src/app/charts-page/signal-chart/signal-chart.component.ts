@@ -23,7 +23,7 @@ export class SignalChartComponent implements OnInit, OnChanges {
   gradient = false;
   showLegend = true;
   showXAxisLabel = true;
-  xAxisLabel = 'Time (UTC)';
+  xAxisLabel = 'Time'; //need to add time zone here
   showYAxisLabel = true;
   yAxisLabel = 'Signal Strength (dBm)';
   timeline = false;
@@ -51,22 +51,17 @@ export class SignalChartComponent implements OnInit, OnChanges {
     ];
 
     this.data.forEach(val => {
-      //when getting "archive" data, each label contains date and time MM/dd/yyyy HH:MM:SS
-      //when getting "realtime" data, each label only contains the time 'HH:MM:SS'
-      //here we are checking for this and prepending today's date (UTC) to make everything consistent
-      if (val.label.length == 8) {
-        val.label = `${formatDate(Date.now(), 'MM/dd/yyyy', 'en-US', 'UTC')} ${val.label}`;
-      }
+      let timeLabel = `${formatDate(Date.parse(val.timestamp), 'HH:MM:ss', 'en-US', 'UTC')}`;
       lines[0].series.push(
         {
-          name: new Date(val.label),
-          value: +val.y[0] || 0
+          name: timeLabel,
+          value: +val.signal_dbm || 0
         }
       );
       lines[1].series.push(
         {
-          name: new Date(val.label),
-          value: +val.y[1] || 0
+          name: timeLabel,
+          value: +val.noise_dbm || 0
         }
       );
     });

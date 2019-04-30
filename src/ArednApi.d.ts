@@ -98,19 +98,18 @@ declare namespace ArednApi {
     }
 
     interface ChartPage {
-        realtime?: [SignalResult[]],
-        archive?: [SignalResult[]]
+        realtime?: SignalResult[],
+        archive?: SignalResult[]
     }
 
     interface SignalResult {
-        tx_mcs: string;
-        rx_mcs: string;
-        label: string;
-        m: number; //margin (signal - noise) in dB
-        y: [number | null, number | null]; //[signal, noise] in dBm
-        x: number; //seconds since epoch?
-        rx_rate: string; //Mbps
-        tx_rate: string; //Mbps
+        timestamp: string;
+        signal_dbm: number;
+        noise_dbm: number;
+        tx_rate_mbps: number;
+        rx_rate_mbps: number;
+        tx_rate_mcs_index: number | undefined;
+        rx_rate_mcs_index: number | undefined;
     }
     interface FrequencyListResult {
         restricted: boolean;

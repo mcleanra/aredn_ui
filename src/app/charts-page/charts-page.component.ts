@@ -12,7 +12,7 @@ import { DisposableComponent } from "../DisposableComponent";
 })
 export class ChartsPageComponent extends DisposableComponent implements OnInit, OnDestroy {
   public results: ArednApi.SignalResult[] = [];
-  public pollInterval: number = 1000;
+  public pollIntervalMilliseconds: number = 1000;
   public polling = false;
   public snr: number;
 
@@ -22,8 +22,8 @@ export class ChartsPageComponent extends DisposableComponent implements OnInit, 
     super();
   }
 
-  addResult(result: ArednApi.SignalResult[]) {
-    this.results = this.results.concat(result);
+  addResult(signalResults: ArednApi.SignalResult[]) {
+    this.results = this.results.concat(signalResults);
   }
 
   clear() {
@@ -37,7 +37,7 @@ export class ChartsPageComponent extends DisposableComponent implements OnInit, 
   }
 
   getSignal(realtimeOrArchive: string = "realtime") {
-    this.chartService.get<[ArednApi.SignalResult[]]>(realtimeOrArchive)
+    this.chartService.get<ArednApi.SignalResult[]>(realtimeOrArchive)
       .pipe(
         first(),
         takeUntil(this.disposer)
@@ -53,15 +53,15 @@ export class ChartsPageComponent extends DisposableComponent implements OnInit, 
     this.onStartPolling();
   }
 
-  onResultsReceived(results: [ArednApi.SignalResult[]]) {
-    this.updateSnr(results[0]);
-    this.addResult(results[0]);
+  onResultsReceived(signalResults: ArednApi.SignalResult[]) {
+    this.updateSnr(signalResults);
+    this.addResult(signalResults);
   }
 
   onStartPolling() {
     this.clear();
     this.polling = true;
-    this.poll = interval(this.pollInterval)
+    this.poll = interval(this.pollIntervalMilliseconds)
       .pipe(takeUntil(this.disposer))
       .subscribe(() => {
         this.getSignal("realtime");
@@ -73,8 +73,16 @@ export class ChartsPageComponent extends DisposableComponent implements OnInit, 
     this.poll.unsubscribe();
   }
 
-  updateSnr(results: ArednApi.SignalResult[]) {
-    this.snr = results[results.length - 1].m;
+  //is this correct?  i'm not sure we're doing the correct calculation for SNR here
+  //keeping it the same as the old code for now
+  updateSnr(signalResults: ArednApi.SignalResult[]) {
+    if (signalResults.length == 0) {
+      this.snr = 0;
+    }
+    else {
+      let lastResult = signalResults[signalResults.length - 1];
+      this.snr = lastResult.signal_dbm - lastResult.noise_dbm;
+    }
   }
 
 }
