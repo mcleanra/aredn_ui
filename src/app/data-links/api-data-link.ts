@@ -6,9 +6,7 @@ import { IDataLink } from '../core/IDataLink';
  * Data link implemnations using HTTP to access to the Node's API service.
  */
 export class ApiDataLink implements IDataLink<ArednApi.ApiResponse> {
-    /**
-     *
-     */
+
     constructor(private page: string, private http: HttpClient) {
     }
 
@@ -22,13 +20,11 @@ export class ApiDataLink implements IDataLink<ArednApi.ApiResponse> {
      * Handles fetching data
      */
     resolveData(keys: string[]): Observable<ArednApi.ApiResponse> {
-        let params = {};
-        params[this.page] = keys.join(",");
+        const params = {};
+        params[this.page] = keys.join(',');
 
         return this.http.get<ArednApi.ApiResponse>(`/cgi-bin/api`, {
             params: params
         });
     }
-
-
 }
