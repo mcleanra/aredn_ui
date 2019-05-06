@@ -14,10 +14,18 @@ import { MemoryAndStorageComponent } from './cards/memory-and-storage/memory-and
 import { HeaderComponent } from './header/header.component';
 import { NodesPageComponent } from './nodes-page/nodes-page.component';
 import { ScanPageComponent } from './scan-page/scan-page.component';
+import { ChartsPageComponent } from './charts-page/charts-page.component';
+import { SignalChartComponent } from './charts-page/signal-chart/signal-chart.component';
+import { DatePipe } from '@angular/common';
 import { SignalIconComponent } from './scan-page/signal-icon/signal-icon.component';
 import { SortIconComponent } from './scan-page/sort-icon/sort-icon.component';
 import { ScanListResultsComponent } from './scan-page/scan-list-results/scan-list-results.component';
 import { NgArrayPipesModule } from 'ngx-pipes';
+import { ToneComponent } from './charts-page/tone/tone.component';
+import { AudioContextModule } from 'angular-audio-context';
+import { FormsModule } from '@angular/forms';
+import { LineChartModule } from '@swimlane/ngx-charts';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 /**
  * These are the cards that are displayed on the Status Page
@@ -39,17 +47,24 @@ const CardComponents = [
     NodesPageComponent,
     ...CardComponents,
     ScanPageComponent,
+    ChartsPageComponent,
+    SignalChartComponent,
     SignalIconComponent,
     SortIconComponent,
-    ScanListResultsComponent
+    ScanListResultsComponent,
+    ToneComponent
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     HttpClientModule,
     AppRoutingModule,
-    NgArrayPipesModule
+    NgArrayPipesModule,
+    AudioContextModule.forRoot('balanced'),
+    FormsModule,
+    LineChartModule
   ],
-  providers: [],
+  providers: [DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
