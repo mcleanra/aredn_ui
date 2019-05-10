@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -26,6 +26,8 @@ import { AudioContextModule } from 'angular-audio-context';
 import { FormsModule } from '@angular/forms';
 import { LineChartModule } from '@swimlane/ngx-charts';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { LoadingMessageComponent } from './loading-message/loading-message.component';
+import { LoadingMessageInterceptor } from './loading-message/loading-message-inteceptor.service';
 
 /**
  * These are the cards that are displayed on the Status Page
@@ -39,12 +41,18 @@ const CardComponents = [
   MemoryAndStorageComponent
 ];
 
+/** Http interceptor providers in outside-in order */
+export const httpInterceptorProviders = [
+  { provide: HTTP_INTERCEPTORS, useClass: LoadingMessageInterceptor, multi: true },
+];
+
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
     StatusPageComponent,
     NodesPageComponent,
+    LoadingMessageComponent,
     ...CardComponents,
     ScanPageComponent,
     ChartsPageComponent,
@@ -64,7 +72,10 @@ const CardComponents = [
     FormsModule,
     LineChartModule
   ],
-  providers: [DatePipe],
+  providers: [
+    DatePipe,
+    httpInterceptorProviders
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
